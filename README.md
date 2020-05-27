@@ -3,19 +3,19 @@
 - Problem Description: Given an array of clouds(`0` and `1`), person can jump `1` or `2` per time. Finding the minimum 
 jumps
 - Concept: Applying `dynamic programming`
-###Two Sum
+### Two Sum
 - Problem Description: we are looking for the indexes of two number which sum is the targets input.
 - Concept: use `HashMap` to preload the given number data and its supplement. Which will get the 
 values in constant time.
-###Add Two Numbers
+### Add Two Numbers
 - Problem Description: given two `linked list` numbers, finding the sum as another linked list
 - Concept: recursively call the method to add each digit, once need to carry `1`, first take care of 
 the digit where overflowed, then add a node of 1 to the next node
-###Longest Substring Without Repeating Characters
+### Longest Substring Without Repeating Characters
 - Problem Description: as title said
 - Concept: the key is to send alert once find the overlapped sequence, since it's finding the non-overlapped sequence,
 we can use a set which will have no overlapped elements rather than list all possibilities
-###Median Of Two Sorted Arrays
+### Median Of Two Sorted Arrays
 - Problem Description: as title said, The `overall run time complexity should be O(log (m+n))`,
 once we have `log` then it's has high probability of a varsity of `binary search` 
 + Concept: In this problem, we divide each array by `half`, since each array is `sorted`, the first half will always 
