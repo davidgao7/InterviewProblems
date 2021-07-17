@@ -93,3 +93,13 @@ fabric.properties
 # End of https://www.gitignore.io/api/intellij
 HackerRank.iml
 HackerRanck.iml
+*.class
+.idea/.name
+.idea/compiler.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/jarRepositories.xml
+.idea/leetcode/editor.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+CMakeLists.txt
