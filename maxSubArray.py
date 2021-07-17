@@ -20,32 +20,16 @@ from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        # inital need to consider negative case
-        max_sum = -1 * math.inf
-
         # base case
         if len(nums) == 0:
             return 0
-        if len(nums) == 1:
-            return nums[0]
-        if len(nums) == 2:
-            return max(max(nums[0], nums[0] + nums[1]), max(nums[1], nums[0] + nums[1]))
 
-        # general case 1: given list
+        # dp[i]: 以 nums[i] 结尾的sublist sum
+        dp = [0] * len(nums)
+        max_sum = nums[0]
         for i in range(0, len(nums)):
-            for j in range(i + 1, len(nums)):
-                # dynamic programming
-                max_sum = max(max_sum, sum(nums[i:j]))  # index i to index j
-
-        # compare with whole list sum
-        max_sum = max(max_sum, sum(nums))
-
-        # general case 2: reversed given list
-        nums.reverse()
-        for i in range(0, len(nums)):
-            for j in range(i + 1, len(nums)):
-                # dynamic programming
-                max_sum = max(max_sum, sum(nums[i:j]))
+            dp[i] = max(dp[i - 1] + nums[i], nums[i])  # 计算是否还有更大的最大值
+            max_sum = max(max_sum, dp[i])  # update 到更大的最大值
 
         return max_sum
 
