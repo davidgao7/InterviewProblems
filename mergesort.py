@@ -7,11 +7,11 @@ def mergeSort(myList):
         # Recursive call on each half
         mergeSort(left)  # for subarr with only one element, it will just go to the next line
         mergeSort(
-            right)  # in thread, it will go to forth thread, return , out to third thread and moving down to 13th line
+            right)  # in thread, it will go to forth thread, return , out to third thread and moving down to 14th line
 
         # ======================================================#
         # Two iterators for traversing the two halves
-        i = 0
+        i = 0  # the 14th line
         j = 0
 
         # Iterator for the main list
