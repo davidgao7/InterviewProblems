@@ -5,8 +5,9 @@ def mergeSort(myList):
         right = myList[mid:]
 
         # Recursive call on each half
-        mergeSort(left)
-        mergeSort(right)
+        mergeSort(left)  # for subarr with only one element, it will just go to the next line
+        mergeSort(
+            right)  # in thread, it will go to forth thread, return , out to third thread and moving down to 13th line
 
         # ======================================================#
         # Two iterators for traversing the two halves
