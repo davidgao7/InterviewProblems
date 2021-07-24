@@ -84,7 +84,7 @@ class Solution:
         else:
             return self.findNumberIn2DArray(matrix[0:pivot], target)
 
-    def binary_search_1D(self, arr: List[int], target: int) -> bool:
+    def binary_search_1D(self, arr: List[int], target: int) -> bool: # working
 
         if not arr:
             return False
