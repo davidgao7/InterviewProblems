@@ -41,69 +41,43 @@ from typing import List
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
+    def flatten(matrix):
+        flatten = []
+        if matrix == [[]]:
+            return []
+        else:
+            for i in range(0, len(matrix)):
+                for j in range(0, len(matrix[i])):
+                    flatten.append(matrix[i][j])
+
+            return flatten
+
     def findNumberIn2DArray(self, matrix: List[List[int]], target: int) -> bool:
-        """
-        :param matrix: 2d array/list
-        :param target: number to find
-        :return: can find number or not
 
-        I'm going to try the two ptr method similar to find median in 2 array, binary search but now theres one 2d list
-        idea: binary search array[i][0] to find possible row, then binary search this row
-        time complexity: O(logn)+O(logn) = O(logn)
-        """
-        flatten_list = [e for row in matrix for e in row]
-        if len(flatten_list) == 0:
+        # base case
+        if len(Solution.flatten(matrix)) == 0:  # 没元素
             return False
-        if len(flatten_list) == 1:
-            if flatten_list[0] == target:
+
+        # the most right most up number is the mid
+        i, j = 0, len(matrix[0]) - 1
+        while i < len(matrix) and j >= 0:  # 限制 j
+            mid = matrix[i][j]
+            if mid == target:
                 return True
-            else:
-                return False
-
-        first_elements = [arr[0] for arr in matrix]
-        pivot = len(first_elements) // 2
-        vertical_mid = first_elements[pivot]
-
-        if vertical_mid == target:
-            return True
-
-        # if beginning of row < target, search this row
-        if vertical_mid < target:
-            # edge case, one element in  sub array
-            if len(matrix[pivot]) == 1:
-                return self.findNumberIn2DArray(matrix[pivot:], target)
-
-            in_row = self.binary_search_1D(matrix[pivot], target)
-
-            if in_row:
-                return True
-            else:
-                return self.findNumberIn2DArray(matrix[:pivot], target) or self.findNumberIn2DArray(matrix[pivot:],
-                                                                                                    target)
-        # if beginning of row > target or target not in current row, need search sub 2d array above this row
-        else:
-            return self.findNumberIn2DArray(matrix[0:pivot], target)
-
-    def binary_search_1D(self, arr: List[int], target: int) -> bool: # working
-
-        if not arr:
-            return False
-        if len(arr) == 1 and arr[0] != target:
-            return False
-
-        pivot = len(arr) // 2
-
-        if arr[pivot] == target:
-            return True
-        if arr[pivot] < target:
-            return self.binary_search_1D(arr[pivot:], target)
-        else:
-            return self.binary_search_1D(arr[:pivot], target)
+            if mid < target:
+                i += 1
+            if mid > target:
+                j -= 1
+            # print(i)
+            # print(j)
+            # print(" ")
+        return False
 
 
 # leetcode submit region end(Prohibit modification and deletion)
 
 solution = Solution()
-array = [[1, 4, 7, 11, 15], [2, 5, 8, 12, 19], [3, 6, 9, 16, 22], [10, 13, 14, 17, 24], [18, 21, 23, 26, 30]]
-target_1 = 20
+array = [[-5]]
+# [[1, 4, 7, 11, 15], [2, 5, 8, 12, 19], [3, 6, 9, 16, 22], [10, 13, 14, 17, 24], [18, 21, 23, 26, 30]]
+target_1 = -10
 print(solution.findNumberIn2DArray(array, target_1))
