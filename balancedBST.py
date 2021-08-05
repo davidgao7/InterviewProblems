@@ -47,13 +47,14 @@ class Solution:
     def helper(self, left, right):
         if left is None and right is None:
             return True  # reach the bottom
-        elif left is None and right is not None:
+        elif left is None or right is None:
             return False  # one of them is not empty will be false
         elif left is not None and right is None:
             return False
         elif left.val == right.val:
-            return Solution.helper(self, left.left, right.right) \
-                   and Solution.helper(self, left.right, right.left)  # 内侧
+            outside = Solution.helper(self, left.left, right.right)  # 判断外侧是否对称
+            inside = Solution.helper(self, left.right, right.left)  # 判断内侧是否对称
+            return outside and inside
 
     # leetcode submit region end(Prohibit modification and deletion)
 
