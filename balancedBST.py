@@ -58,6 +58,10 @@ class Solution:
     # leetcode submit region end(Prohibit modification and deletion)
 
 
+# in order: L N R
+# pre order: N L R
+# post order: L R N
+
 T = TreeNode(
     val=1,
     left=TreeNode(
