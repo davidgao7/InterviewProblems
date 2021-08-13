@@ -26,13 +26,7 @@
 #  nums 的每个元素都将在 [-9999, 9999]之间。
 #
 #  Related Topics 数组 二分查找
-#  👍 277 👎 0
-
-
-# leetcode submit region begin(Prohibit modification and deletion)
 from typing import List
-
-
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         # base case 0,1,2 elements
@@ -58,7 +52,7 @@ class Solution:
         if target < val:
             return self.search(nums[0:pivot], target)
         elif pivot + 1 <= len(nums) - 1:  # <= for getting the last element in list
-            k = self.search(nums[pivot + 1:len(nums)], target) # not find element need to end quick
+            k = self.search(nums[pivot + 1:len(nums)], target)  # not find element need to end quick
             if k != -1:
                 return pivot + 1 + k
             else:
@@ -66,10 +60,7 @@ class Solution:
 
         return -1
 
-
-# leetcode submit region end(Prohibit modification and deletion)
-nums = [-1, 0, 5]
-target = 2
+nums = [-2,1,2]
+target = -2
 s = Solution()
-index = s.search(nums, target)
-print('index of %d is %d in %s' % (target, index, nums))
+print(s.search(nums, target))
