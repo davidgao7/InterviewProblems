@@ -151,16 +151,42 @@ s = Solution()
 
 
 # lists = [linkedlist_1, linkedlist_2, linkedlist_3]
+def print_linked_lists(lists):
+    i = 0
+    for node in lists:
+        print("linked list %d" % i)
+        list = []
+        while node:
+            list.append(node.val)
+            node = node.next
+        print(list)
+        i += 1
+
+
 def print_linked_list(node):
-    s = []
+    list = []
     while node:
-        s.append(node.val)
+        list.append(node.val)
         node = node.next
-    print(s)
+    print(list)
 
 
-# lists = [ListNode(), ListNode(1), ListNode(3, ListNode(2))]
-lists = [ListNode(2), ListNode(), ListNode(-1)]
+node1 = ListNode(1,
+                ListNode(4,
+                        ListNode(5))
+                )
+node2 = ListNode(1,
+                 ListNode(3,
+                          ListNode(4))
+                 )
+node3 = ListNode(2,
+                 ListNode(6)
+                 )
+
+lists = [node1, node2, node3]
+
+print_linked_lists(lists)
 result = s.mergeKLists(lists)
+print("after merge:")
 print_linked_list(result)
 # 时间复杂度，空间复杂度
