@@ -59,37 +59,12 @@ class ListNode:
 
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        # if only has one linked list
-        if len(lists) == 1: return lists[0]
-        # empty list case
-        for list in lists:
-            if not list:
-                lists = lists[1:]
-        if not lists:
-            return
-
-        # transform all linked list to list, sorting using merge sort / quick sort
-        list_all = self.listsnode_to_list(lists)
-        # only 1 elements in 2 lists
-        if len(list_all) == 1 and list_all[0] is None: return None
-        if len(list_all) == 1: return ListNode(lists[0].val)
-
-        # quick sort
-        low = 0
-        high = len(list_all) - 1
-        self.quick_sort(list_all, low, high)
-
-        # transform list back to linked list
-        result = self.list_to_node(list_all)
-        return result
-
-    def listsnode_to_list(self, lists: List[ListNode]):
-        listall = []
-        for node in lists:
-            ref = node
-            while ref:
-                if ref.val != -1 or ref.val is not None:  # include 0
-                    listall.append(ref.val)
+        # 听了一下@花花酱的讲解
+        # use mergesort logic : LeetCode[21]
+        # time complexity: O(nklogk)
+        # space complexity: O(logk)[recursively] -> O(1)[linearly], 空间更省
+        # 思路：先完成merge-2-lists, 然后延伸成 k-lists
+        # 没有必要转化成list也可以做
                 else:
                     pass
                 ref = ref.next
