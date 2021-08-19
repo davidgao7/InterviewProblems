@@ -10,24 +10,93 @@
 struct ListNode {
     int val;
     ListNode *next;
+
     explicit ListNode(int x) : val(x), next(nullptr) {}
 };
 
 // 这个时候有 pointer和库的cpp应该比较好解决linked list
 
-class mergeKLists {}; // 不用管
+class mergeKLists {
+}; // 不用管
 
-class Solution{
+class Solution {
 public:
-    ListNode* mergeKLists(std::vector<ListNode*>& lists){
+    ListNode *mergeKLists(std::vector<ListNode *> &lists) {
         return merge(lists, 0, lists.size() - 1);
     }
 
+    static void printNodeval(ListNode *node) {
+        // & ref, * pointer
+
+        ListNode *refnode = node;
+        printf("[");
+        while (refnode->next != nullptr) {
+            printf("%d,", refnode->val);
+            refnode = refnode->next;
+        }
+        printf("%d", refnode->val); // print last val
+        printf("]\n");
+    }
+
+    static void printListNodes(std::vector<ListNode*> &lists){
+        for (int i = 0; i < lists.size(); i++){
+            printf("list %d:\n", i);
+            printNodeval(lists[i]);
+        }
+    }
+
 private:
-    ListNode* merge(std::vector<ListNode*>& lists, int l, int r){
+    ListNode *merge(std::vector<ListNode *> &lists, int left, int right) {
+
+        // base case
+        if (left > right) return nullptr;
+        if (left == right) return lists[left];
+        if (left + 1 == right) return mergeTwoLists(lists[left], lists[right]);
+
+        // divide & conquer
+        int mid = int((left + right) / 2);
+        ListNode *r1 = merge(lists, left, mid);
+        ListNode *r2 = merge(lists, mid + 1, right);
+
+        ListNode *result = mergeTwoLists(r1, r2);
+        return result;
+    }
+
+    ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
+        // TODO
         
     }
 
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2){}
-
 };
+
+int main() {
+    Solution *solution = new Solution();
+
+    // 1 -> 4 -> 5
+    ListNode *l1 = new ListNode(1);
+    ListNode *n2 = new ListNode(4);
+    ListNode *n3 = new ListNode(5);
+    l1->next = n2;
+    n2->next = n3;
+
+    // 1 -> 3 -> 4
+    ListNode *l2 = new ListNode(1);
+    ListNode *n4 = new ListNode(3);
+    ListNode *n5 = new ListNode(4);
+    l2->next = n4;
+    n4->next = n5;
+
+    // 2 -> 6
+    ListNode *l3 = new ListNode(2);
+    ListNode *n6 = new ListNode(6);
+    l3->next = n6;
+
+    // result
+    std::vector<ListNode *> listsOfLinkedList = {l1, l2, l3};
+    solution->printListNodes(listsOfLinkedList);
+    ListNode *reuslt = solution->mergeKLists(listsOfLinkedList); // pointer
+
+    printf("\nmerge K lists:\n");
+    Solution::printNodeval(reuslt);
+
+}
