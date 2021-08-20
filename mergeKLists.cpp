@@ -94,6 +94,10 @@ private:
          }
          if (l1) ptr->next = l1;
          if (l2) ptr->next = l2;
+
+         printf("\nmergeTwoLists\n");
+         printNodeval(result.next);
+
          return result.next;
     }
 
