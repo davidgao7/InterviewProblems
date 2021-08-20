@@ -46,11 +46,6 @@ public:
 
 private:
 
-    void swap(ListNode *l1, ListNode *l2) {
-      int val1 = l1->val;
-      l1->val = l2->val;
-      l2->val = val1;
-    }
 
     ListNode *merge(std::vector<ListNode *> &lists, int left, int right) {
 
@@ -87,8 +82,13 @@ private:
          * */
         // therefore, we need to compare one node with every (half) node in the other list
          while (l1 && l2) {
-           if (l1->val > l2->val) {
-              swap(l1,l2);
+           if (l1->val < l2->val) {
+              ptr->next = l1;
+              l1 = l1->next;
+           }
+           else{
+             ptr->next = l2;
+             l2 = l2->next;
            }
            ptr->next = l1;
            l1 = l1->next;
