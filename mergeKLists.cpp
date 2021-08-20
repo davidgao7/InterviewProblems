@@ -2,7 +2,6 @@
 // Created by Tengjun Gao on 8/19/21.
 //
 
-#include "mergeKLists.h"
 #include <vector>
 #include <clocale>
 
@@ -38,14 +37,21 @@ public:
         printf("]\n");
     }
 
-    static void printListNodes(std::vector<ListNode*> &lists){
-        for (int i = 0; i < lists.size(); i++){
+    static void printListNodes(std::vector<ListNode *> &lists) {
+        for (int i = 0; i < lists.size(); i++) {
             printf("list %d:\n", i);
             printNodeval(lists[i]);
         }
     }
 
 private:
+
+    void swap(ListNode *l1, ListNode *l2) {
+      int val1 = l1->val;
+      l1->val = l2->val;
+      l2->val = val1;
+    }
+
     ListNode *merge(std::vector<ListNode *> &lists, int left, int right) {
 
         // base case
@@ -54,7 +60,7 @@ private:
         if (left + 1 == right) return mergeTwoLists(lists[left], lists[right]);
 
         // divide & conquer
-        int mid = int((left + right) / 2);
+        int mid = int(left + (right - left) / 2);
         ListNode *r1 = merge(lists, left, mid);
         ListNode *r2 = merge(lists, mid + 1, right);
 
@@ -63,9 +69,36 @@ private:
     }
 
     ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-        // TODO
-        
+
+        // loop and compare , merge to one list
+        ListNode result(0); // new object in memory
+        ListNode *ptr = &result; // ptr to result memory location
+
+        // if compare index by index, I think we won't know the real smaller one
+        /*eg
+         * [1,2,3,4,5]
+         * [3,7]
+         *
+         * In this case, if we did "indexly", will be
+         * [1,3,2,7,3,4,5],
+         * 1. 1 compares with 3: [1,3]
+         * 2. 2 compares with 7: [2,7], then combine tail with step 1: [1,3,2,7]
+         * 3. and so on
+         * */
+        // therefore, we need to compare one node with every (half) node in the other list
+         while (l1 && l2) {
+           if (l1->val > l2->val) {
+              swap(l1,l2);
+           }
+           ptr->next = l1;
+           l1 = l1->next;
+           ptr = ptr->next;
+         }
+         if (l1) ptr->next = l1;
+         if (l2) ptr->next = l2;
+         return result.next;
     }
+
 
 };
 
@@ -92,7 +125,11 @@ int main() {
     l3->next = n6;
 
     // result
-    std::vector<ListNode *> listsOfLinkedList = {l1, l2, l3};
+    std::vector<ListNode *> listsOfLinkedList;
+    listsOfLinkedList.push_back(l1);
+    listsOfLinkedList.push_back(l2);
+    listsOfLinkedList.push_back(l3);
+
     solution->printListNodes(listsOfLinkedList);
     ListNode *reuslt = solution->mergeKLists(listsOfLinkedList); // pointer
 
