@@ -90,8 +90,6 @@ private:
              ptr->next = l2;
              l2 = l2->next;
            }
-           ptr->next = l1;
-           l1 = l1->next;
            ptr = ptr->next;
          }
          if (l1) ptr->next = l1;
