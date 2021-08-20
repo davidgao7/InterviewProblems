@@ -67,7 +67,7 @@ class Solution:
     def merge(self, a: ListNode, b: ListNode) -> ListNode:
         dummy = ListNode(-1)
         x = dummy  # x 是 dummy 的 ptr， 更新它会使得dummy一块更新，但是dummy一直指向第一个元素所以不会最后return空元素list！！
-        while a and b: #每次比较都把小的放进去
+        while a and b:  # 每次比较都把小的放进去
             ############################################## determine next val in result,
             if a.val < b.val:                           ## continuing update ptr x to
                 x.next = a                              ## append next node in
