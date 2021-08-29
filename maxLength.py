@@ -1,3 +1,8 @@
+#
+# 
+# @param arr int整型一维数组 the array
+# @return int整型
+#
 class A:
     def maxLength(self, arr):
         # write code here
@@ -5,7 +10,9 @@ class A:
         l = list()
         for i in arr:
             while i in l:  # 如果一直有，就把在重复
+                print("%d in l" % i)
                 l.pop(0)
+                print("pop")
                 print(l)
             l.append(i)  # 剔除之后再加上一个保底
             print(l)
@@ -39,3 +46,11 @@ ans = s.maxLength(arr)
 print(ans)
 ans1 = a.maxLength(arr)
 print(ans1)
+"""
+解题思路：
+e.g.
+[2, 2, 3, 4, 3]
+- 如果有就重复的就从前面开始剔除（有点像palindrome）
+- 一直剔除到重复的元素也被剔除（结束位置为最后一次出现的位置）
+- 这样会确保每一次的结果没有重复，然后把长度记录，取最大的保留
+"""
