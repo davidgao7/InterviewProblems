@@ -92,7 +92,8 @@ input = [0,0,2,0,4,2,4,0,7,3,2,10,7,9,
 k = 125
 # input = [4,5,1,6,2,7,3,8]
 # k = 4
-
+# input = [0,1,2,1,2]
+# k=3
 t1 = timeit()
 print(s.GetLeastNumbers_Solution(tinput=input, k=k))
 t2 = timeit()
