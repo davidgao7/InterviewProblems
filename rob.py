@@ -42,18 +42,19 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        def robRange(start: int, end: int) -> int:
+        def robRange(start: int, end: int) -> int:  # function rob 内部可调用
             first = nums[start]
             second = max(nums[start], nums[start + 1])  # 选择从第一个还是第二个开始
             for i in range(start + 2, end + 1):
-                first, second = second, max(first + nums[i], second) # 得到结果后作为下一个取舍的input
+                first, second = second, max(first + nums[i], second)  # 得到结果后作为下一个取舍的input
             return second
 
+        # base case
         length = len(nums)
         if length == 1:
             return nums[0]
         elif length == 2:
             return max(nums[0], nums[1])
         else:
-            return max(robRange(0, length - 2), robRange(1, length - 1))
+            return max(robRange(0, length - 2), robRange(1, length - 1))  # 对比是从第一个开始好还是第二个
 # leetcode submit region end(Prohibit modification and deletion)
