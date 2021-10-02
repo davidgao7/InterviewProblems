@@ -56,6 +56,8 @@ public class Calculator {
                     stack.push(stack.pop() * number);
                 } else if (sign == '/') {
                     stack.push(stack.pop() / number);
+                } else if (sign == '^'){
+                    stack.push((int) Math.pow(stack.pop(),number));
                 }
                 number = 0;
                 sign = c;
@@ -70,9 +72,9 @@ public class Calculator {
 
     public static void main(String args[]) {
         Calculator calculator = new Calculator();
-        String input = "3+ (2- 3)*4-1 / (4+5) -0+4";
+        String input = "3+ (2- 3)*4-1 / 2";
         int answer = calculator.calculate(input);
         System.out.println("input equation: " + input);
-        System.out.println("answer of the equation: " + answer + "\n");
+        System.out.println("answer of the equation in integer from: " + answer + "\n");
     }
 }
