@@ -46,11 +46,11 @@ public:
 
         while(current != nullptr || !stack.empty()){
             if (current != nullptr){
-                stack.push(current);
+                stack.push(current); // add e at the Top of the stack O(1)
                 current = current->left;
             }else{
-                current = stack.top();
-                stack.pop();
+                current = stack.top(); // return a reference to the top most e of stack O(1)
+                stack.pop(); // deletes the top most e of stack O(1)
                 result.push_back(current->val);
                 current = current->right;
             }
