@@ -55,6 +55,8 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 #include "iostream"
+#include <vector>
+#include "unordered_map"
 
 // Definition for a Node.
 class Node {
@@ -72,24 +74,90 @@ public:
 
 class Solution {
 private:
-    int listLength(Node* node){
+    int listLength(Node *node) {
         int len = 0;
-        Node* ref = node;
-        while(ref){
+        Node *ref = node;
+        while (ref) {
             len++;
             ref = ref->next;
         }
         return len;
     }
+
+
 public:
-    void printNode(Node* node){
-        int listLen = listLength(node);
-        printf("node length is %d\n", listLen);
-    }
+//    Node *copyRandomList(Node *head) {
+//        if (head == nullptr) { return nullptr; }
+//        Node *copy = new Node(0);
+//        Node *ptr = copy;
+//        while (head) {
+//            ptr->val = head->val;
+//            ptr->next = head->next;
+//            ptr->random = head->random;
+//            head = head->next;
+//            ptr = ptr->next;
+//        }
+//        return copy;
+//    }
+
+/* NOTE:
+ * If you are going to build large table once and do lots of queries, use std::unordered_map.
+ * If you are going to build small table (may be under 100 elements) and do lots of queries,
+ * use std::map .
+ *
+ * This is because reads on it are O(log n) .
+ * If you are going to change table a lot then may be std::map is good option.
+ * */
     Node *copyRandomList(Node *head) {
-        printf("working\n");
-        return nullptr;
+        if (head == nullptr) return nullptr;
+        Node *cur = head;
+        std::unordered_map<Node *, Node *> map;
+        // large table-> std::unordered_map, small table(under 100 elements)->std::map because it reads in O(log n)
+        // if going to change table a lot -> std::map
+        // 3. 复制各节点，并建立 “原节点 -> 新节点” 的 Map 映射
+        while (cur != nullptr) {
+            map[cur] = new Node(cur->val); // broke the node connection, store into map
+            cur = cur->next;
+        }
+        cur = head;
+        // 4. 构建新链表的 next 和 random 指向
+        while (cur != nullptr) {
+            map[cur]->next = map[cur->next]; //map[cur] is a node, cur is a node, reconstruct current->next node connection
+            map[cur]->random = map[cur->random];
+            cur = cur->next;
+        }
+        // 5. 返回新链表的头节点
+        return map[head];
     }
+
+    void printNode(Node *node) {
+        printf("node value:\n");
+        Node *ref = node;
+        printf("[");
+        while (ref) {
+            if (ref->next == nullptr) {
+                printf("%d", ref->val);
+            } else {
+                printf("%d->", ref->val);
+            }
+            ref = ref->next;
+        }
+        printf("]\n");
+
+        printf("node random value\n");
+        ref = node;
+        printf("[");
+        while (ref) {
+            if (ref->random == nullptr) {
+                printf("null, ");
+            } else {
+                printf("%d, ", ref->random->val);
+            }
+            ref = ref->next;
+        }
+        printf("]\n");
+    }
+
 };
 //leetcode submit region end(Prohibit modification and deletion)
 
@@ -116,6 +184,12 @@ int main() {
     next3->random = next2;
     next4->random = head;
 
-//    s->printNode(head);
+    printf("head node:\n");
+    s->printNode(head);
+
+    Node *result = s->copyRandomList(head);
+    printf("result Node:\n");
+    s->printNode(result);
+
 }
 
