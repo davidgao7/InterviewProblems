@@ -86,20 +86,6 @@ private:
 
 
 public:
-//    Node *copyRandomList(Node *head) {
-//        if (head == nullptr) { return nullptr; }
-//        Node *copy = new Node(0);
-//        Node *ptr = copy;
-//        while (head) {
-//            ptr->val = head->val;
-//            ptr->next = head->next;
-//            ptr->random = head->random;
-//            head = head->next;
-//            ptr = ptr->next;
-//        }
-//        return copy;
-//    }
-
 /* NOTE:
  * If you are going to build large table once and do lots of queries, use std::unordered_map.
  * If you are going to build small table (may be under 100 elements) and do lots of queries,
