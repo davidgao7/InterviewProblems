@@ -42,7 +42,10 @@
  * };
  */
 using namespace std;
+
+#include <iostream>
 #include "vector"
+#include <stack>
 
 struct TreeNode {
     int val;
@@ -54,17 +57,60 @@ struct TreeNode {
 
 class Solution {
 public:
-    TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder) {
+    TreeNode* buildTree(vector<int> &preorder, vector<int> &inorder) {
         // preorder: N L R [中 左 右]
         // inorder: L N R [左 中 右]
         // postorder: L R N [左 右 中]
 
+        // 1. get the root node from preorder(中 左 右)
+        TreeNode *root = new TreeNode(preorder[0]);
+        // 2. split node into [left root right] parts (inorder)
+        vector<int> left, right;
+        bool flag = true;
+        for (int i = 0; i < inorder.size(); i++) {
+            if (inorder[i] != preorder[0] && flag) { // left
+                left.push_back(inorder[i]);
+            }
+            if (inorder[i] == preorder[0]) {
+                flag = false;
+            }
+            if (inorder[i] != preorder[0] && !flag) { // right
+                right.push_back(inorder[i]);
+            }
+        }
 
+        return root;
+    }
+
+    void postOrderPrintTree(TreeNode* root){
+        std::stack<TreeNode*> stack;
+        std::vector<int> result;
+        if (root == nullptr) return;
+        stack.push(root);
+        while (!stack.empty()) {
+            TreeNode* node = stack.top();
+            stack.pop();
+            result.push_back(node->val);
+            if (node->left) stack.push(node->left);
+            if (node->right) stack.push(node->right);
+        }
+        reverse(result.begin(), result.end());
+        printVecotr(result);
+    }
+
+    void printVecotr(std::vector<int> arr) {
+        std::cout << '[';
+        for (int i = 0; i < arr.size(); i++) {
+            std::cout << arr[i] << ',' << ' ';
+        }
+        std::cout << ']';
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
-
-int main(){
-    printf("hello world\n");
-    return 0;
+int main() {
+    vector<int>preorder = {3,9,20,15,7};
+    vector<int>inorder = {9,3,15,20,7};
+    Solution* solurtion = new Solution();
+    TreeNode* answer = solurtion->buildTree(preorder, inorder);
+    solurtion->postOrderPrintTree(answer);
 };
