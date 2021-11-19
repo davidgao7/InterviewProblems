@@ -78,7 +78,25 @@ public:
 
     int minSubArrayLen2(int target, vector<int> &nums) {
         // 二分查找： T:O(nlogn), S:O(n)
-        return 0;
+        // precondition: every element in nums needs to be (+)
+        if (nums.size() == 0) return 0;
+
+        int ans = INT_MAX;
+        vector<int> sums(nums.size()+1, 0);
+        // sums[0] ==> 前 0 个元素的和为0
+
+        for (int i = 1; i<nums.size(); i++){
+            target = target + sums[i-1];
+            //lower_bound Returns an iterator pointing to the first element in the range [first, last) that is not less than (i.e. greater or equal to) value, or last if no such element is found.
+            //实现这里二分查找大于等于某个数的第一个位置的功能
+            auto bound = lower_bound(sums.begin(), sums.end(),target);
+
+            if (bound != sums.end()){
+                int b = static_cast<int>((bound-sums.begin())-(i-1));
+                ans = min(ans, b);
+            }
+        }
+        return ans == INT_MAX ? 0 : ans;
     }
 };
 
@@ -98,6 +116,4 @@ int main() {
 
     cout << ans1 << endl;
     cout << ans2 << endl;
-    assert(ans1 == 1);
-    assert(ans2 == 1);
 }
