@@ -52,6 +52,12 @@ private:
 public:
     MyLinkedList() {
     }
+    void printList(){
+        for (int i = 0; i < list.size(); ++i) {
+            printf("%d ", list[i]);
+        }
+        printf("\n");
+    }
 
     int get(int index) {
         return list[index];
@@ -102,8 +108,8 @@ public:
  * obj->deleteAtIndex(index);
  */
 int main() {
-    vector<string>input1{"MyLinkedList","addAtHead","deleteAtIndex","addAtHead","addAtHead","addAtHead","addAtHead","addAtHead","addAtTail","get","deleteAtIndex","deleteAtIndex"};
-    vector<vector<int>>input2{{},{2},{1},{2},{7},{3},{2},{5},{5},{5},{6},{4}};
+    vector<string>input1{"MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"};
+    vector<vector<int>>input2{{},{1},{3},{1,2},{1},{1},{1}};
     MyLinkedList* obj;
     if (input1.size() == input2.size()){
         int s = input1.size();
@@ -112,16 +118,22 @@ int main() {
                 obj = new MyLinkedList();
             }
             if (input1[i]=="addAtHead"){
+                printf("addAtHead:");
                 obj->addAtHead(input2[i][0]);
             }else if(input1[i]=="addAtTail"){
+                printf("addAtTail:");
                 obj->addAtTail(input2[i][0]);
             }else if(input1[i]=="addAtIndex"){
+                printf("addAtIndex %d:", input2[i][1]);
                 obj->addAtIndex(input2[i][0],input2[i][1]);
             }else if(input1[i]=="deleteAtIndex"){
+                printf("deleteAtIndex %d: ", input2[i][0]);
                 obj->deleteAtIndex(input2[i][0]);
             }else if(input1[i]=="get"){
+                printf("get position %d:", input2[i][0]);
                 printf("%d\n",obj->get(input2[i][0]));
             }
+            obj->printList();
         }
     }else{
         printf("input error!");
