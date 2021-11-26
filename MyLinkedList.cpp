@@ -47,55 +47,102 @@ using namespace std;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class MyLinkedList {
-private:
-    vector<int> list;
+    struct Node {
+        int val;
+        Node *next;
+
+        Node(int val) : val(val), next(nullptr) {}
+    };
+
 public:
+    Node *head;
+    Node *tail;
+
+    int size;
+
     MyLinkedList() {
+        head = new Node(0);
+        tail = head;
+        size = 0;
     }
-    void printList(){
-        for (int i = 0; i < list.size(); ++i) {
-            printf("%d ", list[i]);
+
+    void printList() {
+        printf("size: %d\n", getSize());
+        Node *ptr = head;
+        while (ptr != nullptr) {
+            printf("%d->", ptr->val);
+            ptr = ptr->next;
         }
-        printf("\n");
+        printf("\n\n");
     }
 
     int get(int index) {
-        return list[index];
+        if (index == size - 1) return tail->val;
+        if (index == 0) return head->val;
+
+        // edge case
+        if (index > size - 1 || index < 0) return -1;
+
+        Node *ptr = head;
+        while (index != 0) {
+            ptr = ptr->next;
+            index--;
+        }
+        return ptr->val;
     }
 
     void addAtHead(int val) {
-        auto it = list.begin();
-        list.insert(it, val);
+        if (size == 0) {
+            head = new Node(val);
+            tail = head;
+        } else {
+            Node *newNode = new Node(val);
+            newNode->next = head;
+            head = newNode;
+        }
+        size++;
     }
 
     void addAtTail(int val) {
-        list.push_back(val);
+        if (size == 0) {
+            head = new Node(val);
+            tail = head;
+        } else {
+            tail->next = new Node(val);
+            tail = tail->next;
+        }
+        size++;
     }
 
     void addAtIndex(int index, int val) {
-        auto it = list.begin();
-        while (index != 0) {
-            it++;
-            index--;
+        if (index == 0) addAtHead(val);
+        else if (index == size) addAtTail(val);
+        else {
+            Node *ptr = head;
+            for (int i = 1; i < index; ++i) {
+                ptr = ptr->next;
+            }
+            Node *ref = new Node(val);
+            ref->next = ptr->next;
+            ptr->next = ref;
         }
-        list.insert(it, val);
+        size++;
     }
 
     void deleteAtIndex(int index) {
-        vector<int> con;
-
-        for (int i = 0; i < list.size(); ++i) {
-            if (i != index){
-                con.push_back(list[i]);
+        if (index==0){head = head->next;}
+        else if (index > size-1){return;}
+        else{
+            Node *ptr = head;
+            for (int i = 0; i < index - 1; ++i) {
+                ptr = ptr->next;
             }
+            ptr->next = ptr->next->next;
         }
-
-        for (int i = 0; i < con.size(); ++i) {
-            list[i] = con[i];
-        }
-
-        list.pop_back();
+        size--;
     }
+
+    int getSize(){ return size;}
 };
 
 /**
@@ -108,34 +155,39 @@ public:
  * obj->deleteAtIndex(index);
  */
 int main() {
-    vector<string>input1{"MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"};
-    vector<vector<int>>input2{{},{1},{3},{1,2},{1},{1},{1}};
-    MyLinkedList* obj;
-    if (input1.size() == input2.size()){
+/*["MyLinkedList","addAtHead","deleteAtIndex"]
+[[],[1],[0]]*/
+    vector <string> input1{"MyLinkedList","addAtHead","addAtHead","deleteAtIndex","get","addAtIndex"};
+    vector <vector<int>> input2{
+            {},{1},{9},{0},{0},{1,3}
+    };
+    MyLinkedList *obj;
+    if (input1.size() == input2.size()) {
         int s = input1.size();
         for (int i = 0; i < s; ++i) {
-            if (i==0){
+            if (input1[i] == "MyLinkedList") {
                 obj = new MyLinkedList();
+                printf("initial list:");
             }
-            if (input1[i]=="addAtHead"){
-                printf("addAtHead:");
+            if (input1[i] == "addAtHead") {
+                printf("insert %d addAtHead:", input2[i][0]);
                 obj->addAtHead(input2[i][0]);
-            }else if(input1[i]=="addAtTail"){
-                printf("addAtTail:");
+            } else if (input1[i] == "addAtTail") {
+                printf("insert %d addAtTail:", input2[i][0]);
                 obj->addAtTail(input2[i][0]);
-            }else if(input1[i]=="addAtIndex"){
-                printf("addAtIndex %d:", input2[i][1]);
-                obj->addAtIndex(input2[i][0],input2[i][1]);
-            }else if(input1[i]=="deleteAtIndex"){
+            } else if (input1[i] == "addAtIndex") {
+                printf("insert %d addAtIndex %d:", input2[i][1], input2[i][0]);
+                obj->addAtIndex(input2[i][0], input2[i][1]);
+            } else if (input1[i] == "deleteAtIndex") {
                 printf("deleteAtIndex %d: ", input2[i][0]);
                 obj->deleteAtIndex(input2[i][0]);
-            }else if(input1[i]=="get"){
+            } else if (input1[i] == "get") {
                 printf("get position %d:", input2[i][0]);
-                printf("%d\n",obj->get(input2[i][0]));
+                printf("%d\n", obj->get(input2[i][0]));
             }
             obj->printList();
         }
-    }else{
+    } else {
         printf("input error!");
     }
 }
