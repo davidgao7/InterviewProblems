@@ -65,6 +65,8 @@ struct ListNode {
 class Solution {
 public:
     ListNode *reverseList(ListNode *head) {
+        // cur, pre 两个 两个反转
+        // 先开始， pre=nullptr, cur=first node,向右移动cur，再向右移动pre，将cur指向pre完成反转，最后 pre=last node, cur=nullptr表明已经遍历所有node，整个链表已经完成反转
         if (!head) return nullptr;
 
         ListNode *temp; // point to next
