@@ -25,3 +25,18 @@ class Solution:
 
         intermedeateNode.next = None
         return reverseNode
+
+    def reverse_link_list_regular(self, head):
+        # 1. decleare a pre node to help curr node reverse point
+        cur=head
+        pre = None
+        # 2. loop through the linked list, reverse the list one by one
+        while cur:
+            # 2.1 flip the cur
+            temp = cur.next
+            cur.next = pre
+            # 2.2 updatethe pre and cur
+            pre = cur
+            cur = temp
+
+        return pre
