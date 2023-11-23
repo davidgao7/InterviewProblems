@@ -122,7 +122,7 @@ class Solution:
 
         # 2. 从短的list开始
         # 求出两个链表的长度，求出两个链表的差值，让currA移动到和currB末尾对齐的位置（长的链表移动）
-        curr_ptr_A_steps = headA_len - abs(headA_len-headB_len) if headA_len > headB_len else 0  # A list ptr
+        curr_ptr_A_steps = headA_len - headB_len if headA_len > headB_len else 0  # A list ptr
         curr_ptr_B_steps = 0 if headA_len > headB_len else headB_len - headA_len  # B list ptr
         # 此时curr_ptr_A_steps、curr_ptr_B_steps 代表指针需要向右移动n个可以使这两个linklist的ptr对齐
         currA = headA
@@ -137,33 +137,33 @@ class Solution:
 
         # 3. 此时指针的位置从后方对齐
         # 如果当前节点不相同，同时向后移动两个节点直到找到相同的节点，否则return None
-        while currA.val != currB.val:
-            if currA == currB:
-                return currA
+        while currA and currB and currA.val != currB.val:
             currA = currA.next
             currB = currB.next
 
         # # 跳出来后检查下是否相等，而不是其中一个linked list loop 完了
-        # if currA.val == currB.val:
-        #     return currA  # default return A list
+        if currA == currB:  # must be same object
+            return currA  # default return A list
+        else:
+            # 如果后面还有，继续比较
+            if currA.next and currB.next:
+                return self.getIntersectionNode(currA.next, currB.next)
 
         return None
 
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
-    NodeA = ListNode(4,
-                     ListNode(1,
-                              ListNode(8,
-                                       ListNode(4,
-                                                ListNode(5,
-                                                         )))
-                              ))
-    NodeB = ListNode(5,
+    NodeA = ListNode(2,
                      ListNode(6,
-                              ListNode(1,
-                                       ListNode(8,
-                                                ListNode(4,
-                                                         ListNode(5))))))
+                              ListNode(4)))
+    NodeB = ListNode(1,
+                     ListNode(5,
+                              )
+                     )
+
+    # NodeB = ListNode(3,
+    #                  NodeC
+    #                           )
     s = Solution()
     intercestion = s.getIntersectionNode(NodeA, NodeB)
     print(intercestion)
