@@ -40,7 +40,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def get_next(self, next, s):
-        next[0] = 0
+        next[0] = 0  # 记录匹配失败后next子串跳过元素的个数
         j = 0
         for i in range(1, len(s)):
             while j > 0 and s[i] != s[j]:
