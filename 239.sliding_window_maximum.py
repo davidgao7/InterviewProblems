@@ -49,7 +49,7 @@ class Solution:
         import collections
 
         output = []
-        q = collections.deque()  # index
+        q = collections.deque()  # index, deque 1st in 1st out O(n) memory movements cost
         l = r = 0  # window
 
         while r < len(nums):
