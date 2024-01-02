@@ -79,10 +79,13 @@ class Solution:
                 return None  # the recursive connection will be none therefore 'delete' the node
 
             # connect the 'existing' tree
-            elif not root.left:
+
+            # left is empty, right is not, connect root(current) and right to perform the deletion
+            elif not root.left and root.right:
                 return root.right
 
-            elif not root.right:
+            # right is empty, left is not, connect root(current) and left to perform the deletion
+            elif not root.right and root.left:
                 return root.left
 
             # perform deletion
