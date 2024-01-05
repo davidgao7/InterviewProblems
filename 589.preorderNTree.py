@@ -57,7 +57,7 @@ class Solution:
         self.preorder_helper(root, result)
         return result
 
-    def preorder_helper(self, root: "Node", res_list) -> List[int]:
+    def preorder_helper(self, root: "Node", res_list):
         if not root:
             return res_list
         res_list.append(root.val)
