@@ -25,6 +25,8 @@ class Solution:
             return res
         
         def backtrack(combination, next_digits):
+            # end condition, store the result
+            # if we iterate all the digits, we can return the final result
             if not next_digits:
                 res.append(combination)
                 return
