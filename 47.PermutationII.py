@@ -50,6 +50,12 @@ class Solution:
 
         for i in range(0, len(nums)):
 
+            # NOTE: the reason use used[i-1]=False is more efficient
+            # is because
+            # used[i-1] == True is checking when same level, different branch
+            # used[i-1] == False is checking when check parent level this number is chosen or not, same branch
+            # while same branch seach is more efficient (dfs), when backtracking goes to different branches, it will
+            # have more choices, which cost more time
             if i > 0 and nums[i] == nums[i - 1] and used[i - 1] == False :
                 # level check if number is used
                 continue  # go to another branch
