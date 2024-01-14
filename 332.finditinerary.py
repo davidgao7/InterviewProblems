@@ -51,102 +51,29 @@ from typing import List
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
+    # based on https://www.youtube.com/watch?v=j31ZOupyrAs
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        # sort to find the path start at the smallest alphabet
-        tickets.sort()
-        used = [0] * len(tickets)
-        # path start at JFK
-        path = ["JFK"]
-        results = []
-        # flight record dict to check circulate flights
-        # flight_records = set()  # store how many times this airport has been landed
-        self.backtracking(
-            tickets=tickets,
-            used=used,
-            path=path,
-            cur_location='JFK',
-            results=results,
-            # flight_records=flight_records,
-        )
-        # return the least lexical order result
-        return results[0]
+        self.adj = {}
+        tickets.sort(key=lambda x:x[1])
 
-    def backtracking(
-        self,
-        tickets: List[List[str]],
-        used: List[int],
-        path: List[str],
-        cur_location: str,
-        results: List[List[str]],
-        # flight_records: set,
-    ):
-        """
-        :param tickets:  ticket list
-        :param used: list to mark tickets as used
-        :param path: current path
-        :param cur_location: current location
-        :param results: result tickets
-        :return:
-        """
+        # get all possible connection for each destination
+        for u,v in tickets:
+            if u in self.adj: self.adj[u].append(v)
+            else: self.adj[u] = [v]
 
-        # stop cond: if we used all the tickets, we cannot do further
-        # +1 : final destination
-        if len(path) == len(tickets) + 1:
-            # print(f"add {path} to result")
-            results.append(path[:])
-            return True  # once we find the first result, it will be the smallest lexical order since we've sorted at first
+        self.result = []
+        self.dfs("JFK")
 
-        # start bfs and dfs all the possible next destination
-        for i, ticket in enumerate(tickets):
+        return self.result[::-1]  # reverse to get the result
 
-            # find the ticket which can fly from the current location
-            # ticket ex: ["JFK","SFO"]
-            # ticket_takeoff_location = ticket[0]
-            # ticket_drop_location = ticket[1]
-            # print(
-            #     f"ticket_takeoff_location == cur_location: {ticket_takeoff_location == cur_location}"
-            # )
-            # print(
-            #     f"ticket_drop_location not in flight_records: {ticket_drop_location in flight_records}"
-            # )
-            # print(f"ticket_takeoff_location:{ticket_takeoff_location}")
-            # print(f"ticket_drop_location:{ticket_drop_location}")
-            # print(f"flight_records:{flight_records}")
-            # print(f'results: {results}')
-            if (
-                ticket[0] == cur_location
-                and used[i]
-                == 0  # not circular, not using flight_records since we will write more to check circular
-            ):
+    def dfs(self, s):
+        # if depart city has flight and the flight can go to another city
+        while s in self.adj and len(self.adj[s]) > 0:
+            v = self.adj[s][0]  # we go to the 1 choice of the city
+            self.adj[s].pop(0)  # get rid of this choice since we used it
+            self.dfs(v)  # we start from the new airport
 
-                # mark the ticket as used
-                used[i] =1
-                # proceed the flight
-                path.append(ticket[1])
-                # # we can take off
-                # flight_records = flight_records.union(
-                #     set(ticket)
-                # )  # add the flight to the traveled record after landing
-                # print(tickets)
-                # print(used)
-                # print(f"current path: {path}")
-                # print(f"flight_records: {flight_records}")
-                # find another option
-                # print("==================================")
-                can_reach_destination = self.backtracking(
-                    tickets=tickets,
-                    used=used,
-                    path=path,
-                    cur_location=ticket[1],
-                    results=results,
-                    # flight_records=flight_records
-                )
-                # back track to find more path
-                path.pop()  # pop the last one
-                used[i] =0
-                # if we can reach the destination, we've found the route
-                if can_reach_destination:
-                    return True
+        self.result.append(s)  # after append, it will back track to last node, thus the result list is in reversed order
 
 
 # leetcode submit region end(Prohibit modification and deletion)
