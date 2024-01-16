@@ -39,7 +39,7 @@ from typing import List
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         result = []
-        checkbox = [["."] * n for _ in range(n)]
+        checkbox = ["." * n for _ in range(n)]
         self.backtracking(checkbox, n, 0, result)
         return [["".join(row) for row in solution] for solution in result]
 
@@ -54,6 +54,7 @@ class Solution:
         # when all row choice in this column is complete, we've reached the leaf of the tree
         if row_index == n:
             print(checkbox)
+            print("================condition satisfied===================")
             result.append(checkbox[:])  # add current path
             return
 
@@ -61,7 +62,11 @@ class Solution:
         for i in range(0, n):
             if self.isValid(row_index, i, checkbox):
                 # can put queen
-                checkbox[row_index][i] = "Q"
+                x = list(checkbox[row_index])
+                # put Q in
+                x[i] = "Q"
+                # change the checkbox state
+                checkbox[row_index] = ''.join(x)
                 # check next row
                 self.backtracking(checkbox, n, row_index + 1, result)
                 # undo to go to another option/branch
@@ -101,7 +106,12 @@ class Solution:
 
 
 # leetcode submit region end(Prohibit modification and deletion)
-if __name__ == '__main__':
+if __name__ == "__main__":
     n = 4
     solution = Solution()
-    print(solution.solveNQueens(n))
+    result = solution.solveNQueens(n)
+    print(result)
+    assert [
+        [".Q..", "...Q", "Q...", "..Q."],
+        ["..Q.", "Q...", "...Q", ".Q.."],
+    ] == result
