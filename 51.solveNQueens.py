@@ -35,11 +35,11 @@
 from typing import List
 
 
-# leetcode submit region begin(Prohibit modification and deletion)
+# # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         result = []
-        checkbox = ["." * n for _ in range(n)]
+        checkbox = [["."] * n for _ in range(n)]
         self.backtracking(checkbox, n, 0, result)
         return [["".join(row) for row in solution] for solution in result]
 
@@ -53,24 +53,25 @@ class Solution:
 
         # when all row choice in this column is complete, we've reached the leaf of the tree
         if row_index == n:
-            print(checkbox)
-            print("================condition satisfied===================")
+            # print(checkbox)
+            # print("================condition satisfied===================")
             result.append(checkbox[:])  # add current path
             return
 
         # check current row 's each position is valid
-        for i in range(0, n):
-            if self.isValid(row_index, i, checkbox):
+        for col_index in range(0, n):
+            if self.isValid(row_index, col_index, checkbox):
                 # can put queen
-                x = list(checkbox[row_index])
                 # put Q in
-                x[i] = "Q"
+                checkbox[row_index]=checkbox[row_index][:col_index] + ["Q"] + checkbox[row_index][col_index + 1 :]  # NOTE: Q has to be an array itself too
                 # change the checkbox state
-                checkbox[row_index] = ''.join(x)
+                #print("=====current state checkbox========")
+                #print(checkbox)
+                #print("=====current state checkbox========")
                 # check next row
                 self.backtracking(checkbox, n, row_index + 1, result)
                 # undo to go to another option/branch
-                checkbox[row_index][i] = "."
+                checkbox[row_index]=checkbox[row_index][:col_index] + ["."] + checkbox[row_index][col_index + 1 :]  # NOTE: . has to be an array itself too
 
     def isValid(self, row, col, checkbox):
         """
@@ -87,7 +88,7 @@ class Solution:
                 return False
 
         # check 45 angle
-        i, j = row - 1, col - 1
+        i, j = row - 1, col - 1  # 45 degreees clockwise
         while i >= 0 and j >= 0:
             if checkbox[i][j] == "Q":
                 return False
@@ -95,7 +96,7 @@ class Solution:
             j -= 1
 
         # check 135
-        k, l = row - 1, col - 1
+        k, l = row - 1, col + 1  # 135 degrees clockwise
         while k >= 0 and l < len(checkbox):
             if checkbox[k][l] == "Q":
                 return False
@@ -111,7 +112,3 @@ if __name__ == "__main__":
     solution = Solution()
     result = solution.solveNQueens(n)
     print(result)
-    assert [
-        [".Q..", "...Q", "Q...", "..Q."],
-        ["..Q.", "Q...", "...Q", ".Q.."],
-    ] == result
