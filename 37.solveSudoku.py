@@ -72,13 +72,13 @@ class Solution:
                         if self.isvalid(i, j, k, board):
                             print(i, j)
                             board[i][j] = str(k)
-                            self.printboard(board)
-                            print('=============================')
+                            # self.printboard(board)
+                            # print('=============================')
                             # if found a solution, no need to search further
                             if self.backtrack(board): return True
                             else:
                                 # else back track
-                                print('backtrack')
+                                # print('backtrack')
                                 board[i][j] = "."
                     # if none of 9 numbers no work, not solvable
                     return False
