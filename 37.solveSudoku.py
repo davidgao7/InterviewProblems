@@ -70,28 +70,26 @@ class Solution:
                 if board[i][j] == ".":
                     for k in range(1, 10):
                         if self.isvalid(i, j, k, board):
-                            print(i, j)
+                            # print(i, j)
                             board[i][j] = str(k)
                             # self.printboard(board)
                             # print('=============================')
                             # if found a solution, no need to search further
                             if self.backtrack(board): return True
-                            else:
-                                # else back track
-                                # print('backtrack')
-                                board[i][j] = "."
+                            # else back track
+                            # print('backtrack')
+                            board[i][j] = "."
                     # if none of 9 numbers no work, not solvable
                     return False
-            return True
+        return True  # NOTE: return true when entire loop is done
 
     def isvalid(self, i:int, j:int, k:int, board:List[List[str]]) -> bool:
         # haven't put the k in yet
         # check column
-        for n in range(0, len(board)):
+        for n in range(9):
             if board[n][j] == str(k):
                 return False
         # check row
-        for n in range(0, len(board[i])):
             if board[i][n] == str(k):
                 return False
         # check the subSudoku(3x3)
