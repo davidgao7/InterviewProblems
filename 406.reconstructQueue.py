@@ -55,6 +55,7 @@ from typing import List
 class Solution:
     def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
         # sort by descending height, then ascending k
+        # when -x[0] is the same, sort by x[1]
         people.sort(key=lambda x: (-x[0], x[1]))  # (descending, ascending)
         res = []
         # insert each person at the index specified by k
