@@ -41,12 +41,11 @@ class Solution:
         dp = [[0] * len(s) for _ in range(len(s))]
 
         # 2. fill the dp array from the bottom up
-        for i in range(len(s)-1, -1, -1):
-            for j in range(i+1, len(s)):
-                if i==j:  # base case, when i==j, the length of the palindrome is 1
-                    dp[i][j] = 1
-                if s[i]==s[j]:  # if the two characters are the same, then the length of the palindrome is 2
-                    dp[i][j] = dp[i+1][j-1]+2
+        for i in range(len(s) - 1, -1, -1):
+            dp[i][i] = 1  # Base case: single character is a palindrome of length 1
+            for j in range(i + 1, len(s)):
+                if s[i] == s[j]:  # if the two characters are the same
+                    dp[i][j] = dp[i + 1][j - 1] + 2
                 else:  # if the two characters are different, then the length of the palindrome is the maximum of the two subproblems
                     dp[i][j] = max(dp[i+1][j], dp[i][j-1])
 
