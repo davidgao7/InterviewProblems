@@ -51,7 +51,6 @@
 # O(nums1.length + nums2.length) solution?
 #
 #  Related Topics Array Hash Table Stack Monotonic Stack 👍 7575 👎 637
-from typing import List
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
@@ -75,11 +74,11 @@ class Solution:
                 stack.append(i)
             else:
                 # keep comparing until the loop element is less than the top of the stack
-                while stack and nums2[i] > nums2[stack[-1]]:
+                while len(stack)!=0 and nums2[i] > nums2[stack[-1]]:
                     # if top of the stack is in nums1, update the result array
-                    if nums2[stack[-1]] in hashmap.keys():
+                    if nums2[stack[-1]] in nums1: # check if the top of the stack is in nums1, not the hashmap!
                         index = hashmap[nums2[stack[-1]]]
-                        result[index] = nums2[i-1]
+                        result[index] = nums2[i]
                     # pop the stack after record the number in result array
                     stack.pop(-1)
                 stack.append(i)
@@ -87,6 +86,3 @@ class Solution:
 
 
 # leetcode submit region end(Prohibit modification and deletion)
-if __name__ == '__main__':
-    so = Solution()
-    print(so.nextGreaterElement([2,4], [1,2, 3, 4])) # [3, -1]
