@@ -51,6 +51,7 @@
 # O(nums1.length + nums2.length) solution?
 #
 #  Related Topics Array Hash Table Stack Monotonic Stack 👍 7575 👎 637
+from typing import List
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
