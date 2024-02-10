@@ -58,6 +58,28 @@ class Solution:
             result[i] = heapq.heappop(pri_que)[1]
         return result
 
+    def topKFrequent2(self, nums: List[int], k: int) -> List[int]:
+        """
+        find the k most frequent elements
+        :param nums:
+        :param k:
+        :return:
+        """
+        count = {}
+        freq = [[] for _ in range(len(nums) + 1)]
+
+        for n in nums:
+            count[n] = count.get(n, 0) + 1
+        for key, v in count.items():
+            freq[v].append(key)
+
+        res = []
+        for i in range(len(freq)-1, 0, -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
+
 
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == "__main__":
@@ -65,3 +87,4 @@ if __name__ == "__main__":
     k = 2
     s = Solution()
     print(s.topKFrequent(nums, k))
+    print(s.topKFrequent2(nums, k))
