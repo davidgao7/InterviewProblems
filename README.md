@@ -1,4 +1,4 @@
-# 每一题的核心知识点
+# Tips & Tricks Notes for each question
 ### Jumping On Cloud
 - Problem Description: Given an array of clouds(`0` and `1`), person can jump `1` or `2` per time. Finding the minimum
 jumps
