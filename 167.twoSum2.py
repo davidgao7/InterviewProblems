@@ -40,4 +40,6 @@ class Solution:
                 l += 1
             else:
                 return [l + 1, r + 1]
+
+        # if we can't find a pair, return empty list
         return []
