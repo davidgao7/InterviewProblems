@@ -37,6 +37,7 @@
 #
 #
 #  Related Topics Array Two Pointers Greedy 👍 28152 👎 1640
+from typing import List
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
