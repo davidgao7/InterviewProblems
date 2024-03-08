@@ -46,6 +46,7 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        print(f"nums: {nums}")
         import collections
 
         output = []
@@ -55,20 +56,40 @@ class Solution:
         l = r = 0  # window
 
         while r < len(nums):
+            #             print(f"nums: {nums}")
             # make sure no smaller in the queue
+            # maintain a monotonic decreasing queue
             while q and nums[q[-1]] < nums[r]:
-                q.pop()  # pop the elem smaller than current e
+                q.pop()  # pop the elem smaller than current e, the element pop is less than current,
+                # the element will never be the maximum in this window
+            #                print(f"q after pop smaller than current nums[r]: {nums[r]}: {q}")
+            #               print("we need to make sure no smaller in the queue")
 
+            #          print(f"q(acutal value): {[nums[i] for i in q]}")
             # add new value
+            #         print(f"r: {r}")
             q.append(r)
+            #        print(f"q(index): {q}")
 
             # if left index out of bound, remove left val from window
+            #       print(f"l: {l}")
+            # NOTE: when it's over the window size, need to pop from left to maintain window size
             if l > q[0]:
-                q.popleft()  # shift the window to right
+                m = q.popleft()  # shift the window to right
+                print(f"m: {m}")
+                print(f"q: {q}")
 
+            # NOTE: if window size is k, then we can start to record the max
+            # because we keep the queue monotonic decreasing order
             if (r + 1) >= k:
+                #         print(f"window: {k}")
+                #        print(
+                #           f"q(index): {q}, l: {l}, r: {r}, q[0]: {q[0]}, nums[q[0]]: {nums[q[0]]}"
+                #      )
                 output.append(nums[q[0]])
                 l += 1
+
+            # print("==============================")
 
             r += 1
         return output
@@ -91,4 +112,3 @@ if __name__ == "__main__":
     nums = [1, 3, -1, -3, 5, 3, 6, 7]
     k = 3
     result = s.maxSlidingWindow(nums, k)
-    print(result)  # [3,3,5,5,6,7]
