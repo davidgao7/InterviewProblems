@@ -49,7 +49,9 @@ class Solution:
         import collections
 
         output = []
-        q = collections.deque()  # index, deque 1st in 1st out O(n) memory movements cost
+        q = (
+            collections.deque()
+        )  # index, deque 1st in 1st out O(n) memory movements cost
         l = r = 0  # window
 
         while r < len(nums):
@@ -64,13 +66,12 @@ class Solution:
             if l > q[0]:
                 q.popleft()  # shift the window to right
 
-            if (r+1) >=k:
+            if (r + 1) >= k:
                 output.append(nums[q[0]])
                 l += 1
 
             r += 1
         return output
-
 
 
 # Window position                Max
@@ -90,4 +91,4 @@ if __name__ == "__main__":
     nums = [1, 3, -1, -3, 5, 3, 6, 7]
     k = 3
     result = s.maxSlidingWindow(nums, k)
-    print(result)
+    print(result)  # [3,3,5,5,6,7]
