@@ -29,7 +29,9 @@ either far right or far left, or normal case that it's in same array.
     2. i point to 0, then A is empty, maxLeft will be mid of B
     3. j point to 0, then B is empty, maxLeft will be mid of A
     4. normal case: 2 arrays will be divides into 2 parts
-   ![divide array1](Page1.jpg)
-   ![divide array1](Page2.jpg)
-   ![divide array1](Page3.jpg)
-   ![divide array1](Page4.jpg)
+    ![divide array1](Page1.jpg)
+    ![divide array1](Page2.jpg)
+    ![divide array1](Page3.jpg)
+    ![divide array1](Page4.jpg)
+    ![reorder linkedlist1](143ReorderlinkedlistPage1.png)
+    ![reorder linkedlist2](143ReorderlinkedlistPage2.png)
