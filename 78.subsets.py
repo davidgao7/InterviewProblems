@@ -57,6 +57,31 @@ class Solution:
             self.backtracking(nums, i + 1, path, result)
             path.pop()
 
+    def subsets2(self, nums: List[int]) -> List[List[int]]:
+        # use dfs to find the path, backtrack to choose another path
+        result = []  # 2d array to store all the subsets
+        subset = []  # 1d array to track the current subset
+
+        def dfs(current_index):
+            # stop case: if we've reached all the elements in nums, we can stop this dfs,
+            # append this path
+            if current_index >= len(nums):
+                result.append(subset[:])
+                return  # exit the current path dfs
+
+            # add the current subset to the result
+            subset.append(nums[current_index])
+            # choose another path
+            dfs(current_index + 1)
+
+            # backtrack, not choose this path
+            subset.pop()
+            dfs(current_index + 1)
+
+        # start the dfs from the first element
+        dfs(0)
+        return result
+
 
 # leetcode submit region end(Prohibit modification and deletion)
 
