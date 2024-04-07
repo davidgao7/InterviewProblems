@@ -33,26 +33,31 @@ class Solution:
         # similar to previous find subsequences, permutation allow same elements
         used = [False] * len(nums)  # track which element has been chosen
         result = []
-        self.backtracking(used,[], nums,  result)
+        self.backtracking(used, [], nums, result)
         return result
 
-    def backtracking(self, used: List, path: List, nums:List[int], result: List[List[int]]):
+    def backtracking(
+        self, used: List, path: List, nums: List[int], result: List[List[int]]
+    ):
 
         # stop condition
         if len(path) == len(nums):
             result.append(path[:])
             return  # get one path, return to another backtracking
 
-        for i in range(0, len(nums)):  # NOTE: only difference is this loop:
+        for i in range(0, len(nums)):
+            # NOTE: only difference is this loop:
             # since we are getting permutation, order matters, no need to check if choose previous number,
             # only need to check if this number has already chosen in this path
-            if used[i]: continue  # choose another option
+            if used[i]:
+                continue  # choose another option
             used[i] = True
             # collect element to from path
             path.append(nums[i])
-            # choose another element
+            # choose another element using backtracking
             self.backtracking(used, path, nums, result)
             used[i] = False
             path.pop(-1)
+
 
 # leetcode submit region end(Prohibit modification and deletion)
