@@ -40,11 +40,16 @@ class Solution:
         self.backtracking(nums, 0, path, result)
         return result
 
-    def backtracking(self, nums: List[int], start_index: int, path, result) -> List[List[int]]:
+    # brute force yet most sufficient method
+    def backtracking(
+        self, nums: List[int], start_index: int, path, result
+    ) -> List[List[int]]:
         # store the current path in current recursive
         result.append(path[:])
 
-        if start_index >= len(nums):  # the loop won't execute if this satisfies anyway , no need to add
+        if start_index >= len(
+            nums
+        ):  # the loop won't execute if this satisfies anyway , no need to add
             return
 
         for i in range(start_index, len(nums)):
@@ -54,3 +59,11 @@ class Solution:
 
 
 # leetcode submit region end(Prohibit modification and deletion)
+
+#         []
+#     1/    \[]
+#     [1]    []
+#     2/\3       \1
+# [1,2]  [1,3]         [1]
+# 3/      \2
+# [1,3,2]   [1,2]         [1,2]
