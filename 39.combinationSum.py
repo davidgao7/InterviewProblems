@@ -58,26 +58,71 @@ class Solution:
         self.backtrack(candidates, target, 0, result, 0, path)
         return result
 
-    def backtrack(self, candidates: List[int], target: int, sum:int,result:List, start_index:int,path:List):
+    def backtrack(
+        self,
+        candidates: List[int],
+        target: int,
+        sum: int,
+        result: List,
+        start_index: int,
+        path: List,
+    ):
 
-        if sum>target: return  # no need to keep searching
-        if sum==target:
+        if sum > target:
+            return  # no need to keep searching
+        if sum == target:
             result.append(path[:])
-            return # no need to keep searching
+            return  # no need to keep searching
 
-        for i in range(start_index,len(candidates)):
+        for i in range(start_index, len(candidates)):
             # if sum > target, can return and find another path
             if sum + candidates[i] > target:
-                continue # continue to the next branch for next number
+                continue  # continue to the next branch for next number
 
             # add 1 candidate
             path.append(candidates[i])
-            sum+=candidates[i]
+            sum += candidates[i]
 
             # backtracking
             self.backtrack(candidates, target, sum, result, i, path)
 
             # pop and subtrack this path
-            sum-=candidates[i]
+            sum -= candidates[i]
             path.pop(-1)
-# leetcode submit region end(Prohibit modification and deletion)
+
+    # leetcode submit region end(Prohibit modification and deletion)
+    #
+    #
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+
+        def dfs(summ, target, path, res, current_idx):
+            # stop condition
+            if summ > target:
+                return
+
+            # check if current meeting sum condition
+            if summ == target:
+                # append the valid path
+                res.append(path[:])
+                return  # stop the dfs, return current path
+
+            # choose different path
+            # not start with 0 , will go to path already done
+            for i in range(current_idx, len(candidates)):
+                # precheck , if > target continue
+                if summ + candidates[i] > target:
+                    continue
+
+                # add the path
+                path.append(candidates[i])
+                summ += candidates[i]
+
+                dfs(summ, target, path, res, i)
+
+                # backtrack
+                summ -= candidates[i]
+                path.pop(-1)
+
+        result = []
+        dfs(0, target, [], result, 0)
+        return result
