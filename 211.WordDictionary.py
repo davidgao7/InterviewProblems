@@ -82,6 +82,8 @@ class WordDictionary:
                     # normal character
                     if c not in cur.children:
                         return False
+
+                    # move to the next node
                     cur = cur.children[c]
 
             return cur.word
