@@ -46,17 +46,17 @@ class KthLargest:
         # declear a min heap
         self.min_heap = nums
         self.k = k  # trackcurrent kth learget
-        heapq.heapify(self.min_heap)
+        heapq.heapify(self.min_heap)  # O(nlogn)
 
         # we can only obtain k number of elements, we don't care about k+1th largest
         while len(self.min_heap) > k:
-            heapq.heappop(self.min_heap)
+            heapq.heappop(self.min_heap)  # O(logn)
 
     def add(self, val: int) -> int:
-        heapq.heappush(self.min_heap, val)
+        heapq.heappush(self.min_heap, val)  # O(logn)
         # if length is > k we pop until k
         while len(self.min_heap) > self.k:
-            heapq.heappop(self.min_heap)
+            heapq.heappop(self.min_heap)  # O(logn)
 
         # return the minimum of the minheap, which is always be the root
         # min_heap list has been changed by heapq
