@@ -54,22 +54,30 @@ class Twitter:
 
     def getNewsFeed(self, userId: int) -> List[int]:
         res = []
-        min_heap = []
+        min_heap = []  # figure out the most recent tweet
 
+        # Add the user itself to the followee list
+        # most followee include the user itself
         self.follow_map[userId].add(userId)
 
+        # Add the most recent tweet of each followee to the heap
         for followee_id in self.follow_map[userId]:
             if followee_id in self.tweet_map:
                 index = len(self.tweet_map[followee_id]) - 1
                 count, tweet_id = self.tweet_map[followee_id][index]
                 heapq.heappush(min_heap, [count, tweet_id, followee_id, index - 1])
 
+        # Get the 10 most recent tweets, if is less than 10, get all
         while min_heap and len(res) < 10:
             count, tweet_id, followee_id, index = heapq.heappop(min_heap)
             res.append(tweet_id)
 
+            # Add the next most recent tweet of the followee to the heap
             if index >= 0:
                 count, tweet_id = self.tweet_map[followee_id][index]
+                # index tell us the next most recent tweet
+
+                # index - 1 is the next most recent tweet
                 heapq.heappush(min_heap, [count, tweet_id, followee_id, index - 1])
 
         return res
