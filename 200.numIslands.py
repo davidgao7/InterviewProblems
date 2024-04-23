@@ -56,7 +56,7 @@ class Solution:
             queue.append((r, c))
 
             while queue:
-                row, col = queue.popleft()
+                row, col = queue.popleft()  # NOTE: if use pop() will be dfs
 
                 # all the direction to move
                 directions = [
