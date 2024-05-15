@@ -33,6 +33,7 @@ class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
 
         # method: union find (https://www.youtube.com/watch?v=ayW5B2W9hfo)
+        # useful in graph type questions
         #
         # each node is a parent of itself
         parent = [i for i in range(n)]
