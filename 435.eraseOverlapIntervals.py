@@ -49,7 +49,7 @@ class Solution:
         if len(intervals) == 0:
             return 0
         # sort points according to 1st e
-        intervals.sort(key=lambda x: (x[0], x[1]))
+        intervals.sort(key=lambda x: (x[0], x[1]))  # NOTE: multi-level sorting, sort by the first element first, then the second element
         count = 0
 
 
