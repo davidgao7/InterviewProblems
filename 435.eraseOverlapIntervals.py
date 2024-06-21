@@ -46,6 +46,7 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        print(f"original intervals: {intervals}")
         if len(intervals) == 0:
             return 0
         # sort points according to 1st e
@@ -54,10 +55,20 @@ class Solution:
 
 
         for i in range(1, len(intervals)):
+            # if the current interval's start is less than the previous interval's end
+            # if the current 1st is equal to previous last, it doesn't count as overlap
             if intervals[i][0] < intervals[i-1][1]:
+                # we have an overlap, update the intervals from left to right(small to large)
+                # we update the right end by getting the minimum 
+                # this entire overlapped interval will be removed
                 intervals[i][1] = min( intervals[i-1][1], intervals[i][1])
                 count += 1
+
+        print(intervals)
 
         return count
 
 # leetcode submit region end(Prohibit modification and deletion)
+
+if __name__ == '__main__':
+    print( Solution().eraseOverlapIntervals([[1,2],[2,3],[3,4],[1,3]]) == 1)
