@@ -53,6 +53,7 @@ class Solution:
             # interate through the intervals, keep adding to min heap while the interval is within the query
             while i < len(intervals) and intervals[i][0] <=q:
                 l, r = intervals[i]
+                # find a smallest intervals which this value belongs to
                 heapq.heappush(min_heap, (r-l+1, r))  # adding the (size of interval, right boundary)
                 i += 1
 
