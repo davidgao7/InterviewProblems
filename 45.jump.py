@@ -53,7 +53,7 @@ class Solution:
         result = 0  # record the number of jumps
 
         for i in range(len(nums) - 1):  # we don't need to consider the last index
-            next_distance = max(next_distance, i + nums[i])
+            next_distance = max(next_distance, i + nums[i])  # take the step or not
 
             if i == cur_distance:
                 # if curr is not the last index, we need to go 1 step further
