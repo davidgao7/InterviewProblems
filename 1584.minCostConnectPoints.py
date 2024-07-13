@@ -39,6 +39,7 @@ class Solution:
                 adj[j].append((i, dist))
 
         # Prim's algorithm
+        # O(ElogE) = O(N^2logN
         res = 0
         visit = set()
         min_heap = [(0, 0)]  # [(cost, node)]
