@@ -28,12 +28,14 @@ class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
         N = len(points)
 
-        adj = {i: [] for i in range(N)}
+        # 1. create adjacency list
+        adj = {i: [] for i in range(N)}  # i: list of [node, cost]
 
         for i in range(N):
             x1, y1 = points[i]
-            for j in range(i + 1, N):
+            for j in range(i + 1, N):  # compare other points
                 x2, y2 = points[j]
+                # get manhattan distance
                 dist = abs(x1 - x2) + abs(y1 - y2)
                 adj[i].append((j, dist))
                 adj[j].append((i, dist))
