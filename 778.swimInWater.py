@@ -60,7 +60,7 @@ class Solution:
         min_heap = [[grid[0][0], 0, 0]]
         directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]  # 4 directions
 
-        visit.add([0, 0])
+        visit.add((0, 0))
         while min_heap:
             t, r, c = heapq.heappop(min_heap)
 
