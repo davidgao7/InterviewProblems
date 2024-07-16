@@ -31,7 +31,7 @@ def setup(m, memo, S, N):
     memo[i][1 << S | 1 << i] = m[S][i]
 ```
 
-![](TSMP.png)
+![](TSMP.png) <!-- source: https://www.youtube.com/watch?v=cY4HiiFHO1o -->
 
 ```python
 def solve(m, memo, S, N):
