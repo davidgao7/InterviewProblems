@@ -59,7 +59,7 @@ def solve(m, memo, S, N):
             memo[next][subset] = minDist
 
     # returns true if the ith bit in `subset` is not set
-    function notin(i, subset):
+    def notin(i, subset):
         return ((1<<i) & subset) == 0
 
 
@@ -67,13 +67,13 @@ def solve(m, memo, S, N):
 
 ```python
 # Generate all bit sets of size n with r bits set to 1.
-function combinations(r, n):
+def combinations(r, n):
     subsets = []
     combinations(0, 0, r, n, subsets)
     return subsets
 
 # Recursive method to generagte bit sets.
-function combinations(set, at r, n subsets):
+def combinations(set, at r, n subsets):
     if r == 0:
         subsets.add(set)
     else:
@@ -88,7 +88,7 @@ function combinations(set, at r, n subsets):
 ```
 
 ```python
-function findMinCost(m, memo, S, N):
+def findMinCost(m, memo, S, N):
     # The end state is the bit mask with
     # N bits set to 1 (equivalently 2^N - 1)
     END_STATE = (1 << N) - 1
@@ -106,7 +106,7 @@ function findMinCost(m, memo, S, N):
 ```
 
 ```python
-function findOptimalTour(m, memo, S, N):
+def findOptimalTour(m, memo, S, N):
     lastIndex = S
     state = (1<<N) - 1; # END_STATE
     tour = array of size N+1
