@@ -44,6 +44,7 @@
 class Solution:
     def numDistinct(self, s: str, t: str) -> int:
         cache = {}
+        # time complexity: O(m * n)
 
         def dfs(i, j):
             if j == len(t):
@@ -64,6 +65,7 @@ class Solution:
             return cache[(i, j)]
 
         return dfs(0, 0)
+
 
 # leetcode submit region end(Prohibit modification and deletion)
 
