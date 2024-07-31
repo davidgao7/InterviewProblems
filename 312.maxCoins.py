@@ -56,6 +56,10 @@ from typing import List
 
 class Solution:
     def maxCoins(self, nums: List[int]) -> int:
+        """
+        Time complexity: O(n^3): The time complexity is O(n^3) because we have
+        n^2 subproblems and each subproblem takes O(n) time to solve.
+        """
         nums = [1] + nums + [1]
         dp = {}
 
