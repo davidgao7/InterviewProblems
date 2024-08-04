@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func reverseBits(num uint32) uint32 {
 	var res uint32 = 0
 
@@ -11,4 +13,9 @@ func reverseBits(num uint32) uint32 {
 	}
 
 	return res
+}
+
+func main() {
+	num := uint32(43261596)       // 00000010100101000001111010011100
+	fmt.Println(reverseBits(num)) // 964176192  // 001110010111100000101
 }
