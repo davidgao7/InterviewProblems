@@ -58,3 +58,10 @@ class LinkedList:
             i += 1
             ptr = ptr.next
         return -1  # index out of bounds
+
+    def insertHead(self, val: int) -> None:
+        new_node = Node(val, self.head)  # our new head
+
+        new_node.next = self.head.next  # since our head is a dummy node
+
+        self.head.next = new_node
