@@ -65,3 +65,11 @@ class LinkedList:
         new_node.next = self.head.next  # since our head is a dummy node
 
         self.head.next = new_node
+
+    def insertTail(self, val: int) -> None:
+        # create new tail
+        new_tail = Node(val)
+        # connect tail
+        self.tail.next = new_tail
+        # move ptr to updated tail
+        self.tail = self.tail.next
