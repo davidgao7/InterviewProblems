@@ -44,7 +44,7 @@ class Solution:
         def dfs(r, c, prevVal):
             if r < 0 or r == ROWS or c < 0 or c == COLS or matrix[r][c] <= prevVal:
                 return 0
-            if (r, c) in dp:
+            if (r, c) in dp:  # memoization, no need to recompute
                 return dp[(r, c)]
 
             res = 1
