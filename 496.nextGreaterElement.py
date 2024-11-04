@@ -76,15 +76,40 @@ class Solution:
                 stack.append(i)
             else:
                 # keep comparing until the loop element is less than the top of the stack
-                while len(stack)!=0 and nums2[i] > nums2[stack[-1]]:
+                while len(stack) != 0 and nums2[i] > nums2[stack[-1]]:
                     # if top of the stack is in nums1, update the result array
-                    if nums2[stack[-1]] in nums1: # check if the top of the stack is in nums1, not the hashmap!
+                    if (
+                        nums2[stack[-1]] in nums1
+                    ):  # check if the top of the stack is in nums1, not the hashmap!
                         index = hashmap[nums2[stack[-1]]]
                         result[index] = nums2[i]
                     # pop the stack after record the number in result array
                     stack.pop(-1)
                 stack.append(i)
         return result
+
+    def nextGreaterElement1(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        """
+        add Monotonic increasing stack solution
+
+        Time: O(n+m)
+        """
+        # O(n+m)
+        nums1Idx = {n: i for i, n in enumerate(nums1)}
+        res = [-1] * len(nums1)
+
+        stack = []
+        for i in range(len(nums2)):
+            cur = nums2[i]
+            while stack and cur > stack[-1]:
+                val = stack.pop()
+                idx = nums1Idx[val]
+                res[idx] = cur
+
+            if cur in nums1Idx:
+                stack.append(cur)
+
+        return res
 
 
 # leetcode submit region end(Prohibit modification and deletion)
