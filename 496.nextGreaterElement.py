@@ -57,6 +57,7 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        # O(n+m)
         stack = []
         result = [-1] * len(nums1)
         hashmap = {}  # key: value in nums1, value: index in nums1
