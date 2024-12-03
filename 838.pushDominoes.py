@@ -19,8 +19,9 @@ class Solution:
                 # check if it can make left one til left
                 if i > 0 and dom[i - 1] == ".":
                     # store the updated left one state, push to queue to cause further effects
-                    q.append((i - 1, "L"))
-                    dom[i - 1] = "L"
+                    # NOTE: order matters, we should update the dominoes first
+                    dom[i - 1] = "L"  # current postion: i-1
+                    q.append((i - 1, "L"))  # update current(i-1) state
 
             elif d == "R":
                 if (
@@ -37,8 +38,13 @@ class Solution:
                         # basically skipping next dominoes
                         q.popleft()
                     else:
-                        q.append((i - 1, "L"))
-                        dom[i + 1] = "R"  # the dominoes just go koncked over
+                        # NOTE: order matters, we should update the dominoes first
+                        dom[i + 1] = (
+                            "R"  # the dominoes just go koncked over, current position: i+1
+                        )
+                        q.append(
+                            (i + 1, "R")
+                        )  # store the current state, update current postion: i + 1
 
         return "".join(dom)
 
