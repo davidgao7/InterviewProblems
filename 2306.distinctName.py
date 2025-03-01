@@ -120,7 +120,6 @@ class Solution:
                 distinct1 = len(wordMap[char1]) - intersect
                 distinct2 = len(wordMap[char2]) - intersect
 
-                res += distinct1 + distinct2
                 res += distinct1 * distinct2
 
         return res
