@@ -103,3 +103,6 @@ HackerRanck.iml
 .idea/modules.xml
 .idea/vcs.xml
 CMakeLists.txt
+
+# jdtls configuration
+.settings/
